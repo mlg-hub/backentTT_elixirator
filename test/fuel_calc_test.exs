@@ -2,11 +2,6 @@ defmodule FuelCalcTest do
   alias FuelCalc.Activity
   use ExUnit.Case
   import FuelCalc.Activity
-  doctest FuelCalc
-
-  test "greets the world" do
-    assert FuelCalc.hello() == :world
-  end
 
   test "transform a step into usable route" do
     assert Activity.new_route_format({{:land, 3.711}, 1}) ==
