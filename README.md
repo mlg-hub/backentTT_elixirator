@@ -2,20 +2,8 @@
 
 **TODO: Add description**
 
-## Installation
+## Usage
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `fuel_calc` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:fuel_calc, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/fuel_calc](https://hexdocs.pm/fuel_calc).
+To test the projects type `iex -S mix` at the root of the project and then call the different
+mission functions named `apollo_11` by calling `apollo_11.()`, `mission_mars` by calling `mission_mars.()`,`passenger_ship` by calling `passenger_ship.()` to get the total fuel requred for the different missions.
 

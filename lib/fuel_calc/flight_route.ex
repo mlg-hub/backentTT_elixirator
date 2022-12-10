@@ -1,44 +1,35 @@
 defmodule FuelCalc.FlightRoute do
   alias FuelCalc.Activity
 
-  def total_fuel_calc(module_mass, routes) do
-    transformed_routes = transform_routes(routes, [])
-    IO.inspect(transformed_routes)
-
-    Enum.reduce(transformed_routes, 0, fn route, acc ->
-      acc + get_route_fuel(module_mass, route)
-    end)
-  end
-
-  def transform_routes([head | tail], cumulative) do
+  # This function get the list of our mission routes steps then transforms it.
+  def transform_routes([head | tail], routes_list) do
     with {:ok, data} <- Activity.new_route_format(head) do
-      transform_routes(tail, cumulative ++ [data])
+      transform_routes(tail, routes_list ++ [data])
     end
   end
 
-  def transform_routes([], culmative) do
-    # IO.inspect(culmative)
-    culmative
+  def transform_routes([], routes_list) do
+    Enum.sort_by(routes_list, & &1.index, :desc)
   end
 
+  # This function is responsible to get a route and a the mass of the equipement
   def get_route_fuel(mass, route) do
     with {:ok, fuel} <- calc_fuel(mass, route, 0) do
-      IO.inspect(fuel)
       fuel
     end
   end
 
-  defp calc_fuel(mass, _route, cumulative) when mass <= 0 do
-    {:ok, cumulative}
+  defp calc_fuel(mass, _route, routes_list) when mass <= 0 do
+    {:ok, routes_list}
   end
 
-  defp calc_fuel(mass, route, cumulative) do
+  defp calc_fuel(mass, route, routes_list) do
     %{data: {_, gravity}, operators: op} = route
     fuel = Float.floor(mass * gravity * op.multiplier + op.substructor)
 
     cond do
-      fuel > 0 -> calc_fuel(fuel, route, cumulative + fuel)
-      true -> calc_fuel(0, route, cumulative)
+      fuel > 0 -> calc_fuel(fuel, route, routes_list + fuel)
+      true -> calc_fuel(0, route, routes_list)
     end
   end
 end
