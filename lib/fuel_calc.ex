@@ -9,6 +9,7 @@ defmodule FuelCalc do
         acc + FlightRoute.get_route_fuel(module_mass + acc, route)
       end)
 
-    IO.puts("The total fuel required for this mission is : #{total_fuel}")
+    IO.puts("==> The total fuel required for this mission is : #{total_fuel}")
+    total_fuel
   end
 end

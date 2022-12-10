@@ -12,7 +12,8 @@ defmodule FuelCalc.FlightRoute do
     Enum.sort_by(routes_list, & &1.index, :desc)
   end
 
-  # This function is responsible to get a route and a the mass of the equipement
+  # This function is responsible to get a route and the mass of the equipement
+  # and returns the fuel required for the route
   def get_route_fuel(mass, route) do
     with {:ok, fuel} <- calc_fuel(mass, route, 0) do
       fuel
